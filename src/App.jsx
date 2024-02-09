@@ -3,15 +3,7 @@ import "./App.css";
 import { ContactForm } from "./components/ContactForm/ContactForm";
 import { SearchBox } from "./components/SearchBox/SearchBox";
 import { ContactList } from "./components/ContactList/ContactList";
-import contacts from "./components/ContactForm/contacts.json";
-
-// const initialUsers = [
-//   { username: "Jacob", access: "r", id: 11124 },
-//   { username: "Mango", access: "w", id: 89278 },
-//   { username: "Elena", access: "r", id: 78817 },
-//   { username: "Orlando", access: "m", id: 87667 },
-//   { username: "Gimli", access: "w", id: 45776 },
-// ];
+import contacts from "./components/ContactList/contacts.json";
 
 export const App = () => {
   const [users, setUsers] = useState(contacts);
@@ -35,9 +27,14 @@ export const App = () => {
 
   return (
     <div style={{ padding: 8 }}>
-      <ContactForm onAdd={addUser} />
+      <h1>Phone Book</h1>
+      <ContactForm onSubmit={addUser} />
       <SearchBox value={nameFilter} onChange={setNameFilter} />
-      <ContactList items={visibleUsers} onDelete={deleteUser} />
+      {visibleUsers.length > 0 ? (
+        <ContactList contacts={visibleUsers} onDelete={deleteUser} />
+      ) : (
+        nameFilter && <p>No matches found for `{nameFilter}`</p>
+      )}
     </div>
   );
 };
