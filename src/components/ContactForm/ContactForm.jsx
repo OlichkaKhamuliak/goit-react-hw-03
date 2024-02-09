@@ -3,6 +3,7 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import css from "./ContactForm.module.css";
 import { nanoid } from "nanoid";
+import { IoPersonAdd } from "react-icons/io5";
 
 const userSchema = Yup.object().shape({
   name: Yup.string()
@@ -32,8 +33,11 @@ export const ContactForm = ({ onSubmit }) => {
     >
       <Form className={css.form} autoComplete="off">
         <div className={css.formGroup}>
-          <label htmlFor={nameFieldId}>Name</label>
+          <label className={css.label} htmlFor={nameFieldId}>
+            Name
+          </label>
           <Field
+            className={css.input}
             type="text"
             name="name"
             id={nameFieldId}
@@ -43,8 +47,11 @@ export const ContactForm = ({ onSubmit }) => {
         </div>
 
         <div className={css.formGroup}>
-          <label htmlFor={numberFieldId}>Number</label>
+          <label className={css.label} htmlFor={numberFieldId}>
+            Number
+          </label>
           <Field
+            className={css.input}
             type="text"
             name="number"
             id={numberFieldId}
@@ -53,7 +60,10 @@ export const ContactForm = ({ onSubmit }) => {
           <ErrorMessage className={css.error} name="number" component="span" />
         </div>
 
-        <button type="submit">Add user</button>
+        <button className={css.button} type="submit">
+          <IoPersonAdd className={css.btnIcon} size="25" />
+          Add user
+        </button>
       </Form>
     </Formik>
   );

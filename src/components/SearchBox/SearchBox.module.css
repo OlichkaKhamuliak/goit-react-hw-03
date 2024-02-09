@@ -1,3 +1,19 @@
 .wrapper {
-  margin-bottom: 20px;
+  margin-bottom: 40px;
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+}
+
+.input {
+  width: 250px;
+  padding: 8px;
+}
+@media screen and (min-width: 425px) {
+  .input {
+    width: 310px;
+  }
 }

@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
-import "./App.css";
+import css from "./App.module.css";
 import { ContactForm } from "./components/ContactForm/ContactForm";
 import { SearchBox } from "./components/SearchBox/SearchBox";
 import { ContactList } from "./components/ContactList/ContactList";
 import contacts from "./components/ContactList/contacts.json";
+import { FaAddressBook } from "react-icons/fa";
 
 export const App = () => {
   const [users, setUsers] = useState(() => {
@@ -37,13 +38,24 @@ export const App = () => {
 
   return (
     <div style={{ padding: 8 }}>
-      <h1>Phone Book</h1>
+      <h1 className={css.title}>
+        <FaAddressBook className={css.icon} />
+        Phone Book
+      </h1>
       <ContactForm onSubmit={addUser} />
-      <SearchBox value={nameFilter} onChange={setNameFilter} />
+      {users.length > 0 ? (
+        <SearchBox value={nameFilter} onChange={setNameFilter} />
+      ) : (
+        <p className={`${css.text} ${css.noContacts}`}>
+          You don`t have any contacts yet.
+        </p>
+      )}
       {visibleUsers.length > 0 ? (
         <ContactList contacts={visibleUsers} onDelete={deleteUser} />
       ) : (
-        nameFilter && <p>No matches found for `{nameFilter}`</p>
+        nameFilter && (
+          <p className={css.text}>No matches found for `{nameFilter}`</p>
+        )
       )}
     </div>
   );
