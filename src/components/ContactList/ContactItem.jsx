@@ -1,6 +1,6 @@
 import css from "./ContactList.module.css";
 
-export const ContactItem = ({ contact: { name, number, id }, onDelete }) => {
+export const Contact = ({ contact: { name, number, id }, onDelete }) => {
   return (
     <div>
       <p className={css.name}>{name}</p>
