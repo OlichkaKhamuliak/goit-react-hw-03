@@ -28,7 +28,13 @@ export const App = () => {
 
   const deleteUser = (userId) => {
     setUsers((prevUsers) => {
-      return prevUsers.filter((user) => user.id !== userId);
+      const updatedUsers = prevUsers.filter((user) => user.id !== userId);
+      // Перевірка, чи останній користувач був видалений
+      if (updatedUsers.length === 0) {
+        // Скидання фільтру, якщо останній користувач був видалений
+        setNameFilter("");
+      }
+      return updatedUsers;
     });
   };
 

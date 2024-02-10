@@ -19,6 +19,7 @@
 .formGroup {
   display: flex;
   flex-direction: column;
+  height: 63.2px;
 }
 
 .formGroup select {
@@ -28,7 +29,9 @@
 .label {
   margin-bottom: 10px;
 }
-
+.number {
+  margin-top: 5px;
+}
 .input {
   font-size: 15px;
   padding: 5px;
@@ -48,7 +51,7 @@
   color: antiquewhite;
   border-radius: 15px;
   margin: 0 auto;
-  margin-top: 15px;
+  margin-top: 18px;
   width: 160px;
   transition: background-color var(--animation), box-shadow var(--animation);
 }
