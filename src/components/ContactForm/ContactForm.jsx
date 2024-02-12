@@ -1,10 +1,10 @@
-import { useId, useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import css from "./ContactForm.module.css";
 import { nanoid } from "nanoid";
 import { IoPersonAdd } from "react-icons/io5";
-import { IMaskInput } from "react-imask";
+import IntlTelInput from "react-intl-tel-input";
+import "react-intl-tel-input/dist/main.css";
 
 const userSchema = Yup.object().shape({
   name: Yup.string()
@@ -14,21 +14,6 @@ const userSchema = Yup.object().shape({
 });
 
 export const ContactForm = ({ onSubmit }) => {
-  const [countryCode, setCountryCode] = useState("+38"); // Початковий код країни
-  const [countryOptions] = useState([
-    { value: "+38", label: "Ukraine (+38)", mask: "+38 (000)-000-0000" },
-    { value: "+1", label: "United States (+1)", mask: "+1(000)-000-0000" },
-    { value: "+44", label: "United Kingdom (+44)", mask: "+44(0000)-000000" },
-    // Додайте інші країни за необхідності
-  ]);
-
-  const handleCountryChange = (e) => {
-    setCountryCode(e.target.value);
-  };
-
-  const nameFieldId = useId();
-  const numberFieldId = useId();
-
   return (
     <Formik
       initialValues={{
@@ -43,44 +28,39 @@ export const ContactForm = ({ onSubmit }) => {
     >
       <Form className={css.form} autoComplete="off">
         <div className={css.formGroup}>
-          <label className={css.label} htmlFor={nameFieldId}>
+          <label className={css.label} htmlFor="name">
             Name
           </label>
           <Field
             className={css.input}
             type="text"
             name="name"
-            id={nameFieldId}
+            id="name"
             placeholder="Name Surname"
           />
           <ErrorMessage className={css.error} name="name" component="span" />
         </div>
 
         <div className={css.formGroup}>
-          <label
-            className={`${css.label} ${css.number}`}
-            htmlFor={numberFieldId}
-          >
+          <label className={css.label} htmlFor="number">
             Number
           </label>
-          <select value={countryCode} onChange={handleCountryChange}>
-            {countryOptions.map((option) => (
-              <option key={option.value} value={option.value}>
-                {option.label}
-              </option>
-            ))}
-          </select>
-          <Field
-            as={IMaskInput}
-            className={css.input}
-            type="tel"
-            name="number"
-            id={numberFieldId}
-            placeholder="066-123-45-67"
-            mask={
-              countryOptions.find((option) => option.value === countryCode).mask
-            }
-          />
+          <Field name="number" type="tel">
+            {({ field, form }) => (
+              <IntlTelInput
+                containerClassName="intl-tel-input"
+                inputClassName="form-control"
+                fieldName="number"
+                value={field.value} // Передаємо значення поля до компонента
+                onPhoneNumberChange={(isValid, value, countryData) => {
+                  const cleanedValue = value.replace(/[^\d()-]/g, "");
+                  form.setFieldValue("number", cleanedValue);
+                  console.log(countryData);
+                }}
+                defaultCountry="ua"
+              />
+            )}
+          </Field>
           <ErrorMessage className={css.error} name="number" component="span" />
         </div>
 
