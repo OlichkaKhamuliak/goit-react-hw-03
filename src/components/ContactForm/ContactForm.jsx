@@ -52,7 +52,12 @@ export const ContactForm = ({ onSubmit }) => {
                 inputClassName="form-control"
                 fieldName="number"
                 value={field.value} // Передаємо значення поля до компонента
-                onPhoneNumberChange={(isValid, value, countryData) => {
+                onPhoneNumberChange={(
+                  isValid,
+                  value,
+                  countryData
+                  // instance
+                ) => {
                   const cleanedValue = value.replace(/[^\d()-]/g, "");
                   form.setFieldValue("number", cleanedValue);
                   console.log(countryData);
