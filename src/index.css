@@ -68,6 +68,15 @@ input:active {
 .form-control {
   /* width: auto; Замінено на auto */
   max-width: 100px;
-  height: 30px;
+  height: 30.8px;
   text-align: right;
+  border-radius: 5px 0px 0 5px;
+}
+
+.country-list {
+  max-width: 500px !important;
+}
+
+.intl-tel-input .flag-container .arrow {
+  scale: 1.7;
 }
