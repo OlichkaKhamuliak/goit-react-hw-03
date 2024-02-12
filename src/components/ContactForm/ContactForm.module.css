@@ -30,11 +30,22 @@
   margin-bottom: 10px;
 }
 .number {
-  margin-top: 5px;
+  margin-top: 7px;
 }
 .input {
   font-size: 15px;
   padding: 5px;
+}
+
+.inputPhone {
+  font-size: 15px;
+  padding: 5px;
+  width: 178px;
+}
+@media screen and (min-width: 425px) {
+  .inputPhone {
+    width: 245px;
+  }
 }
 
 .error {
@@ -51,7 +62,7 @@
   color: antiquewhite;
   border-radius: 15px;
   margin: 0 auto;
-  margin-top: 18px;
+  margin-top: 20px;
   width: 160px;
   transition: background-color var(--animation), box-shadow var(--animation);
 }
@@ -64,4 +75,9 @@
 .button:active {
   background-color: #21acd7;
   box-shadow: 0px 2px 2px 2px #21acd738;
+}
+
+.phoneWrap {
+  display: flex;
+  flex-direction: row;
 }

@@ -64,3 +64,10 @@ input:focus,
 input:active {
   background-color: rgba(255, 226, 37, 0.822);
 }
+
+.form-control {
+  /* width: auto; Замінено на auto */
+  max-width: 100px;
+  height: 30px;
+  text-align: right;
+}

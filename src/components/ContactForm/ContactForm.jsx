@@ -10,7 +10,7 @@ const userSchema = Yup.object().shape({
   name: Yup.string()
     .min(3, "Name must be at least 3 characters long")
     .required("Name is a required field"),
-  number: Yup.string().required("Phone number is required!"),
+  phoneNumber: Yup.string().required("Phone number is required!"),
 });
 
 export const ContactForm = ({ onSubmit }) => {
@@ -18,11 +18,17 @@ export const ContactForm = ({ onSubmit }) => {
     <Formik
       initialValues={{
         name: "",
-        number: "",
+        countryCode: "+380",
+        phoneNumber: "",
       }}
       validationSchema={userSchema}
       onSubmit={(values, { resetForm }) => {
-        onSubmit({ id: nanoid(), ...values });
+        const { name, countryCode, phoneNumber } = values;
+        onSubmit({
+          id: nanoid(),
+          name,
+          number: `${countryCode}${phoneNumber}`,
+        });
         resetForm();
       }}
     >
@@ -42,31 +48,57 @@ export const ContactForm = ({ onSubmit }) => {
         </div>
 
         <div className={css.formGroup}>
-          <label className={css.label} htmlFor="number">
+          <label className={`${css.label} ${css.number}`} htmlFor="number">
             Number
           </label>
-          <Field name="number" type="tel">
-            {({ field, form }) => (
-              <IntlTelInput
-                containerClassName="intl-tel-input"
-                inputClassName="form-control"
-                fieldName="number"
-                value={field.value} // Передаємо значення поля до компонента
-                onPhoneNumberChange={(
-                  isValid,
-                  value,
-                  countryData
-                  // instance
-                ) => {
-                  const cleanedValue = value.replace(/[^\d()-]/g, "");
-                  form.setFieldValue("number", cleanedValue);
-                  console.log(countryData);
-                }}
-                defaultCountry="ua"
-              />
-            )}
-          </Field>
-          <ErrorMessage className={css.error} name="number" component="span" />
+          <div className={css.phoneWrap}>
+            <Field name="countryCode" type="text">
+              {({ field, form }) => (
+                <IntlTelInput
+                  containerClassName="intl-tel-input"
+                  inputClassName="form-control"
+                  excludeCountries={["ru"]}
+                  value={field.value}
+                  preferredCountries={["ua", "us", "gb"]}
+                  onPhoneNumberChange={(isValid, value, countryData) => {
+                    form.setFieldValue(
+                      "countryCode",
+                      `+${countryData.dialCode}`
+                    );
+                  }}
+                />
+              )}
+            </Field>
+            <Field
+              className={css.inputPhone}
+              name="phoneNumber"
+              type="tel"
+              placeholder={`Enter phone number`}
+              onKeyDown={(e) => {
+                const allowedChars = /[0-9()-]/; // Регулярний вираз, що дозволяє лише цифри, дужки () та тире -
+
+                // Перевіряємо, чи натискання клавіші є допустимим
+                const isValidChar = allowedChars.test(e.key);
+
+                // Перевіряємо, чи натискання клавіші є допустимими діїми (вліво, вправо, видалення)
+                const isNavigationKey = [
+                  "ArrowLeft",
+                  "ArrowRight",
+                  "Backspace",
+                  "Delete",
+                ].includes(e.key);
+
+                if (!isValidChar && !isNavigationKey) {
+                  e.preventDefault(); // Заборонити введення недопустимого символу
+                }
+              }}
+            />
+          </div>
+          <ErrorMessage
+            className={css.error}
+            name="phoneNumber"
+            component="span"
+          />
         </div>
 
         <button className={css.button} type="submit">
