@@ -5,6 +5,7 @@ import { nanoid } from "nanoid";
 import { IoPersonAdd } from "react-icons/io5";
 import IntlTelInput from "react-intl-tel-input";
 import "react-intl-tel-input/dist/main.css";
+import { useRef } from "react";
 
 const userSchema = Yup.object().shape({
   name: Yup.string()
@@ -14,6 +15,8 @@ const userSchema = Yup.object().shape({
 });
 
 export const ContactForm = ({ onSubmit }) => {
+  const phoneNumberInputRef = useRef(null); // Створюємо посилання на елемент введення номеру телефону
+
   return (
     <Formik
       initialValues={{
@@ -52,11 +55,13 @@ export const ContactForm = ({ onSubmit }) => {
             Number
           </label>
           <div className={css.phoneWrap}>
-            <Field name="countryCode" type="text">
+            <Field className={css.codeInput} name="countryCode" type="text">
               {({ field, form }) => (
                 <IntlTelInput
                   containerClassName="intl-tel-input"
-                  inputClassName="form-control"
+                  inputClassName={
+                    field.value ? "form-control readonly" : "form-control"
+                  }
                   excludeCountries={["ru"]}
                   value={field.value}
                   preferredCountries={["ua", "us", "gb"]}
@@ -65,6 +70,7 @@ export const ContactForm = ({ onSubmit }) => {
                       "countryCode",
                       `+${countryData.dialCode}`
                     );
+                    phoneNumberInputRef.current.focus(); // Переводимо фокус на поле введення номеру телефону
                   }}
                 />
               )}
@@ -92,6 +98,7 @@ export const ContactForm = ({ onSubmit }) => {
                   e.preventDefault(); // Заборонити введення недопустимого символу
                 }
               }}
+              innerRef={phoneNumberInputRef} // Додаємо innerRef для створення посилання
             />
           </div>
           <ErrorMessage

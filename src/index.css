@@ -73,6 +73,13 @@ input:active {
   font-size: 15px;
   text-align: right;
   border-radius: 5px 0px 0 5px;
+  cursor: none;
+}
+
+.readonly {
+  pointer-events: none;
+  opacity: 0.5; /* Прозорість поля */
+  cursor: none;
 }
 
 .country-list {
