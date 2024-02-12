@@ -9,7 +9,7 @@ import "react-intl-tel-input/dist/main.css";
 const userSchema = Yup.object().shape({
   name: Yup.string()
     .min(3, "Name must be at least 3 characters long")
-    .required("Name is a required field"),
+    .required("Name is a required field!"),
   phoneNumber: Yup.string().required("Phone number is required!"),
 });
 

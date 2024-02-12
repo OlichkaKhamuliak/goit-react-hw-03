@@ -7,7 +7,7 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
-  font-family: "Edu TAS Beginner", cursive;
+  font-family: "Pacifico", cursive;
   min-height: 100vh;
   background: linear-gradient(to bottom, #b7b3ec, rgba(239, 210, 157, 0.653));
   font-style: normal;
@@ -57,7 +57,7 @@ input {
   border-radius: 5px;
 }
 ::placeholder {
-  font-family: "Edu TAS Beginner", cursive;
+  font-family: "Pacifico", cursive;
 }
 input:hover,
 input:focus,
@@ -68,7 +68,9 @@ input:active {
 .form-control {
   /* width: auto; Замінено на auto */
   max-width: 100px;
-  height: 30.8px;
+  /* height: 30.8px; */
+  padding: 5px;
+  font-size: 15px;
   text-align: right;
   border-radius: 5px 0px 0 5px;
 }

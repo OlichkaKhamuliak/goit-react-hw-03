@@ -30,7 +30,7 @@
   margin-bottom: 10px;
 }
 .number {
-  margin-top: 7px;
+  margin-top: 20px;
 }
 .input {
   font-size: 15px;
@@ -63,7 +63,7 @@
   color: antiquewhite;
   border-radius: 15px;
   margin: 0 auto;
-  margin-top: 20px;
+  margin-top: 50px;
   width: 160px;
   transition: background-color var(--animation), box-shadow var(--animation);
 }
