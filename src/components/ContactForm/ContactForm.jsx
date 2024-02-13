@@ -5,7 +5,7 @@ import { nanoid } from "nanoid";
 import { IoPersonAdd } from "react-icons/io5";
 import IntlTelInput from "react-intl-tel-input";
 import "react-intl-tel-input/dist/main.css";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 
 const userSchema = Yup.object().shape({
   name: Yup.string()
@@ -16,6 +16,7 @@ const userSchema = Yup.object().shape({
 
 export const ContactForm = ({ onSubmit }) => {
   const phoneNumberInputRef = useRef(null); // Створюємо посилання на елемент введення номеру телефону
+  const [countryCodeSelected, setCountryCodeSelected] = useState(false);
 
   return (
     <Formik
@@ -70,7 +71,11 @@ export const ContactForm = ({ onSubmit }) => {
                       "countryCode",
                       `+${countryData.dialCode}`
                     );
-                    phoneNumberInputRef.current.focus(); // Переводимо фокус на поле введення номеру телефону
+                    setCountryCodeSelected(true);
+                    phoneNumberInputRef.current &&
+                      countryCodeSelected &&
+                      phoneNumberInputRef.current.focus();
+                    // Переводимо фокус на поле введення номеру телефону
                   }}
                 />
               )}
