@@ -22,7 +22,7 @@ export const ContactForm = ({ onSubmit }) => {
     <Formik
       initialValues={{
         name: "",
-        countryCode: "+380",
+        countryCode: "+ 380",
         phoneNumber: "",
       }}
       validationSchema={userSchema}
@@ -31,7 +31,7 @@ export const ContactForm = ({ onSubmit }) => {
         onSubmit({
           id: nanoid(),
           name,
-          number: `${countryCode}${phoneNumber}`,
+          number: `${countryCode.replace(/\s/g, "")}${phoneNumber}`, // Видаляємо пробіли з коду країни при сабміті
         });
         resetForm();
       }}
@@ -67,15 +67,14 @@ export const ContactForm = ({ onSubmit }) => {
                   value={field.value}
                   preferredCountries={["ua", "us", "gb"]}
                   onPhoneNumberChange={(isValid, value, countryData) => {
-                    form.setFieldValue(
-                      "countryCode",
-                      `+${countryData.dialCode}`
-                    );
-                    setCountryCodeSelected(true);
-                    phoneNumberInputRef.current &&
-                      countryCodeSelected &&
-                      phoneNumberInputRef.current.focus();
-                    // Переводимо фокус на поле введення номеру телефону
+                    const newCountryCode = ` ${countryData.dialCode}`;
+                    if (newCountryCode !== field.value) {
+                      form.setFieldValue("countryCode", `+${newCountryCode}`);
+                    }
+                    countryCodeSelected && phoneNumberInputRef.current.focus();
+                    setTimeout(() => {
+                      setCountryCodeSelected(true);
+                    }, 0);
                   }}
                 />
               )}
