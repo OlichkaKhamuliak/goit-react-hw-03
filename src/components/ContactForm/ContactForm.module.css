@@ -40,12 +40,12 @@
 .inputPhone {
   font-size: 15px;
   padding: 5px;
-  width: 178px;
+  width: 173px;
   border-radius: 0 5px 5px 0;
 }
 @media screen and (min-width: 425px) {
   .inputPhone {
-    width: 245px;
+    width: 235px;
   }
 }
 
